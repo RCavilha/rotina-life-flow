@@ -1,11 +1,15 @@
 import { Home, Wallet, ListTodo, Settings } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const BottomNav = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
   const navItems = [
-    { icon: Home, label: "Início", active: true },
-    { icon: Wallet, label: "Finanças" },
-    { icon: ListTodo, label: "Tarefas" },
-    { icon: Settings, label: "Config" },
+    { icon: Home, label: "Início", path: "/" },
+    { icon: Wallet, label: "Finanças", path: "/financas" },
+    { icon: ListTodo, label: "Tarefas", path: "/tarefas" },
+    { icon: Settings, label: "Config", path: "/config" },
   ];
 
   return (
@@ -13,16 +17,18 @@ const BottomNav = () => {
       <div className="max-w-md mx-auto flex justify-around items-center h-16 px-4">
         {navItems.map((item) => {
           const Icon = item.icon;
+          const isActive = location.pathname === item.path;
           return (
             <button
               key={item.label}
+              onClick={() => navigate(item.path)}
               className={`flex flex-col items-center gap-1 transition-all ${
-                item.active
+                isActive
                   ? "text-primary scale-105"
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              <Icon size={24} strokeWidth={item.active ? 2.5 : 2} />
+              <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
               <span className="text-xs font-medium">{item.label}</span>
             </button>
           );

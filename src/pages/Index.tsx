@@ -1,12 +1,11 @@
 import Dashboard from "@/components/Dashboard";
-import BottomNav from "@/components/BottomNav";
+import Layout from "@/components/Layout";
 
 const Index = () => {
   return (
-    <>
+    <Layout>
       <Dashboard />
-      <BottomNav />
-    </>
+    </Layout>
   );
 };
 
