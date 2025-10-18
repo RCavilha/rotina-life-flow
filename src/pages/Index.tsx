@@ -4,7 +4,9 @@ import Layout from "@/components/Layout";
 const Index = () => {
   return (
     <Layout>
-      <Dashboard />
+      <div className="min-h-screen bg-gradient-primary pb-20">
+        <Dashboard />
+      </div>
     </Layout>
   );
 };

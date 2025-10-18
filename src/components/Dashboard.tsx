@@ -1,166 +1,91 @@
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { 
-  Wallet, 
-  TrendingUp, 
-  TrendingDown, 
-  CheckCircle2, 
-  Circle,
-  Calendar,
-  DollarSign,
-  ListTodo,
-  CreditCard,
-  PiggyBank
-} from "lucide-react";
+import { Wallet, TrendingUp, ShoppingCart, ListTodo, Download } from "lucide-react";
 
 const Dashboard = () => {
-  const currentMonth = new Date().toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
-  
   return (
-    <div className="min-h-screen bg-background pb-20">
-      {/* Header with gradient */}
-      <header className="bg-gradient-primary text-primary-foreground px-6 pt-8 pb-12 rounded-b-[2rem] shadow-large">
-        <div className="max-w-md mx-auto">
-          <h1 className="text-3xl font-bold mb-2">Rotina</h1>
-          <p className="text-primary-foreground/90 capitalize">{currentMonth}</p>
-        </div>
-      </header>
+    <div className="px-4 pt-6">
+      {/* Header */}
+      <div className="mb-6 flex items-center justify-center">
+        <h1 className="text-2xl font-bold text-white tracking-wide">
+          ROTINA
+        </h1>
+      </div>
 
-      <div className="max-w-md mx-auto px-6 -mt-8">
-        {/* Financial Summary Card */}
-        <Card className="p-6 mb-6 shadow-medium bg-gradient-card animate-slide-up">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <Wallet className="text-primary" size={24} />
-              <h2 className="font-semibold text-lg">Resumo Financeiro</h2>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-success/10 p-4 rounded-xl">
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="text-success" size={18} />
-                <span className="text-sm text-muted-foreground">Receitas</span>
-              </div>
-              <p className="text-2xl font-bold text-success">R$ 5.420</p>
-            </div>
-            
-            <div className="bg-expense/10 p-4 rounded-xl">
-              <div className="flex items-center gap-2 mb-2">
-                <TrendingDown className="text-expense" size={18} />
-                <span className="text-sm text-muted-foreground">Despesas</span>
-              </div>
-              <p className="text-2xl font-bold text-expense">R$ 3.240</p>
-            </div>
-          </div>
-          
-          <div className="mt-4 pt-4 border-t border-border">
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Saldo</span>
-              <span className="text-2xl font-bold text-primary">R$ 2.180</span>
-            </div>
-          </div>
-        </Card>
-
-        {/* Quick Actions */}
-        <div className="grid grid-cols-2 gap-3 mb-6 animate-fade-in">
-          <Button className="h-auto py-4 flex-col gap-2 bg-gradient-success hover:opacity-90 transition-opacity">
-            <DollarSign size={24} />
-            <span className="text-sm">Nova Receita</span>
-          </Button>
-          <Button className="h-auto py-4 flex-col gap-2 bg-gradient-expense hover:opacity-90 transition-opacity">
-            <CreditCard size={24} />
-            <span className="text-sm">Nova Despesa</span>
-          </Button>
+      {/* Financial Summary */}
+      <div className="mb-6 animate-fade-in">
+        <h2 className="text-sm text-white/90 mb-2">Saldo Atual</h2>
+        <div className="text-5xl font-bold text-success mb-6">R$ 5.890,50</div>
+        
+        {/* Chart placeholder - "Despesas vs. Receitas" */}
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 mb-4 h-48 flex items-center justify-center">
+          <div className="text-xs text-white/70 text-center">Despesas vs. Receitas</div>
         </div>
 
-        {/* Accounts Overview */}
-        <Card className="p-6 mb-6 shadow-soft animate-fade-in">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <PiggyBank className="text-primary" size={20} />
-              <h3 className="font-semibold">Contas</h3>
-            </div>
-            <Button variant="ghost" size="sm">Ver todas</Button>
+        {/* Quick Actions Card */}
+        <div className="bg-card rounded-2xl p-6 shadow-large mb-4">
+          <h3 className="text-base font-semibold text-card-foreground mb-4">Lançamentos Rápidos</h3>
+          <div className="space-y-3 mb-6">
+            <button className="w-full bg-expense text-expense-foreground p-4 rounded-xl flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform shadow-soft">
+              <ShoppingCart size={20} />
+              <span className="font-medium">Nova Despesa</span>
+            </button>
+            <button className="w-full bg-success text-success-foreground p-4 rounded-xl flex items-center justify-center gap-3 hover:scale-[1.02] transition-transform shadow-soft">
+              <TrendingUp size={20} />
+              <span className="font-medium">Nova Receita</span>
+            </button>
           </div>
-          
-          <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
-              <div>
-                <p className="font-medium">Conta Corrente</p>
-                <p className="text-sm text-muted-foreground">Banco Principal</p>
-              </div>
-              <p className="font-semibold text-primary">R$ 1.850</p>
-            </div>
-            <div className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
-              <div>
-                <p className="font-medium">Poupança</p>
-                <p className="text-sm text-muted-foreground">Reserva</p>
-              </div>
-              <p className="font-semibold text-success">R$ 8.500</p>
-            </div>
-          </div>
-        </Card>
 
-        {/* Today's Tasks */}
-        <Card className="p-6 mb-6 shadow-soft animate-fade-in">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <ListTodo className="text-primary" size={20} />
-              <h3 className="font-semibold">Tarefas de Hoje</h3>
-            </div>
-            <span className="text-sm text-muted-foreground">3/5</span>
-          </div>
-          
+          <h3 className="text-base font-semibold text-card-foreground mb-3">Próximas Despesas</h3>
           <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="text-success flex-shrink-0" size={20} />
-              <span className="text-muted-foreground line-through">Levar o cachorro para passear</span>
+            <div className="flex justify-between items-center">
+              <div>
+                <div className="text-sm font-medium text-card-foreground">Alimentação - Mercado</div>
+                <div className="text-xs text-muted-foreground">15/10/2023</div>
+              </div>
+              <div className="text-right">
+                <div className="text-sm font-bold text-card-foreground">R$ 350,00</div>
+                <div className="text-xs text-muted-foreground">Não Pago</div>
+              </div>
             </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="text-success flex-shrink-0" size={20} />
-              <span className="text-muted-foreground line-through">Pagar conta de luz</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="text-success flex-shrink-0" size={20} />
-              <span className="text-muted-foreground line-through">Comprar mantimentos</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Circle className="text-muted-foreground flex-shrink-0" size={20} />
-              <span className="font-medium">Agendar consulta médica</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <Circle className="text-muted-foreground flex-shrink-0" size={20} />
-              <span className="font-medium">Treino na academia</span>
+            <div className="flex justify-between items-center">
+              <div>
+                <div className="text-sm font-medium text-card-foreground">Parcela Empréstimo</div>
+                <div className="text-xs text-muted-foreground">20/10/2023</div>
+              </div>
+              <div className="text-right">
+                <div className="text-sm font-bold text-card-foreground">R$ 1.200,00</div>
+                <div className="text-xs text-muted-foreground">Não Pago</div>
+              </div>
             </div>
           </div>
-          
-          <Button variant="ghost" className="w-full mt-4">
-            <Calendar size={16} className="mr-2" />
-            Ver todas as tarefas
-          </Button>
-        </Card>
+        </div>
+      </div>
 
-        {/* Upcoming Bills */}
-        <Card className="p-6 shadow-soft animate-fade-in">
-          <h3 className="font-semibold mb-4">Contas Próximas</h3>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-expense/5 rounded-lg border-l-4 border-expense">
-              <div>
-                <p className="font-medium">Internet</p>
-                <p className="text-sm text-muted-foreground">Vence em 3 dias</p>
-              </div>
-              <p className="font-semibold text-expense">R$ 99,90</p>
-            </div>
-            <div className="flex items-center justify-between p-3 bg-expense/5 rounded-lg border-l-4 border-expense">
-              <div>
-                <p className="font-medium">Cartão de Crédito</p>
-                <p className="text-sm text-muted-foreground">Vence em 5 dias</p>
-              </div>
-              <p className="font-semibold text-expense">R$ 1.240</p>
-            </div>
+      {/* Bottom Circular Menu */}
+      <div className="mb-6 grid grid-cols-4 gap-4 px-2">
+        <button className="flex flex-col items-center gap-2">
+          <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-medium hover:scale-105 transition-transform">
+            <Wallet size={28} className="text-primary-foreground" />
           </div>
-        </Card>
+          <span className="text-xs text-white font-medium">Contas</span>
+        </button>
+        <button className="flex flex-col items-center gap-2">
+          <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-medium hover:scale-105 transition-transform">
+            <TrendingUp size={28} className="text-primary-foreground" />
+          </div>
+          <span className="text-xs text-white font-medium">Investimentos</span>
+        </button>
+        <button className="flex flex-col items-center gap-2">
+          <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-medium hover:scale-105 transition-transform">
+            <ListTodo size={28} className="text-primary-foreground" />
+          </div>
+          <span className="text-xs text-white font-medium">Categorias</span>
+        </button>
+        <button className="flex flex-col items-center gap-2">
+          <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-medium hover:scale-105 transition-transform">
+            <Download size={28} className="text-primary-foreground" />
+          </div>
+          <span className="text-xs text-white font-medium">Exportar</span>
+        </button>
       </div>
     </div>
   );
