@@ -30,9 +30,9 @@ const Financas = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-primary pb-20">
+      <div className="min-h-screen bg-background pb-20">
       {/* Header */}
-      <header className="text-white px-6 pt-8 pb-8">
+      <header className="bg-gradient-primary text-primary-foreground px-6 pt-8 pb-8 shadow-large">
         <div className="max-w-md mx-auto">
           <div className="flex items-center gap-3 mb-6">
             <button onClick={() => navigate('/')} className="hover:opacity-80 transition-opacity">
