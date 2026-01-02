@@ -71,6 +71,7 @@ export default {
         "gradient-primary": "var(--gradient-primary)",
         "gradient-success": "var(--gradient-success)",
         "gradient-expense": "var(--gradient-expense)",
+        "gradient-header": "var(--gradient-header)",
         "gradient-card": "var(--gradient-card)",
       },
       boxShadow: {
