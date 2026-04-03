@@ -1,4 +1,5 @@
 import BottomNav from "./BottomNav";
+import Sidebar from "./Sidebar";
 import { ReactNode } from "react";
 
 interface LayoutProps {
@@ -7,10 +8,13 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <>
-      {children}
+    <div className="min-h-screen flex">
+      <Sidebar />
+      <main className="flex-1 lg:ml-64 min-h-screen">
+        {children}
+      </main>
       <BottomNav />
-    </>
+    </div>
   );
 };
 
