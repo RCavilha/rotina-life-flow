@@ -1,22 +1,22 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import { 
-  ArrowLeft,
-  Plus,
-  TrendingUp,
-  TrendingDown,
-  CreditCard,
-  PiggyBank,
-  Landmark,
-  MoreVertical,
-  Calendar,
-  Filter
+  ArrowLeft, Plus, TrendingUp, TrendingDown, CreditCard,
+  PiggyBank, Landmark, MoreVertical, Calendar, Filter
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import NovaReceitaForm from "@/components/financas/NovaReceitaForm";
+import NovaDespesaForm from "@/components/financas/NovaDespesaForm";
+import NovaContaForm from "@/components/financas/NovaContaForm";
+import NovoCartaoForm from "@/components/financas/NovoCartaoForm";
+
+type ActiveForm = "receita" | "despesa" | "conta" | "cartao" | null;
 
 const Financas = () => {
   const navigate = useNavigate();
+  const [activeForm, setActiveForm] = useState<ActiveForm>(null);
   
   const transactions = [
     { id: 1, name: "Salário", category: "Receita", value: 5420, date: "2025-10-15", type: "income", paid: true },
@@ -27,10 +27,14 @@ const Financas = () => {
     { id: 6, name: "Internet", category: "Utilidades", value: -99.90, date: "2025-10-21", type: "expense", paid: false },
   ];
 
+  if (activeForm === "receita") return <Layout><NovaReceitaForm onClose={() => setActiveForm(null)} /></Layout>;
+  if (activeForm === "despesa") return <Layout><NovaDespesaForm onClose={() => setActiveForm(null)} /></Layout>;
+  if (activeForm === "conta") return <Layout><NovaContaForm onClose={() => setActiveForm(null)} /></Layout>;
+  if (activeForm === "cartao") return <Layout><NovoCartaoForm onClose={() => setActiveForm(null)} /></Layout>;
+
   return (
     <Layout>
       <div className="min-h-screen bg-background pb-20 lg:pb-8">
-        {/* Header */}
         <header className="bg-gradient-primary text-primary-foreground px-6 pt-8 pb-8 shadow-large lg:rounded-none">
           <div className="max-w-md lg:max-w-6xl mx-auto">
             <div className="flex items-center gap-3 mb-6">
@@ -40,13 +44,11 @@ const Financas = () => {
               <h1 className="text-2xl font-bold">Finanças</h1>
             </div>
             
-            {/* Balance Card */}
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/20 lg:flex lg:items-center lg:justify-between lg:gap-8">
               <div>
                 <p className="text-primary-foreground/80 text-sm mb-1">Saldo Total</p>
                 <p className="text-3xl font-bold mb-4 lg:mb-0">R$ 10.330</p>
               </div>
-              
               <div className="flex gap-4 lg:gap-8">
                 <div>
                   <p className="text-primary-foreground/80 text-xs mb-1">Receitas</p>
@@ -62,54 +64,40 @@ const Financas = () => {
         </header>
 
         <div className="max-w-md lg:max-w-6xl mx-auto px-6 mt-6">
-          {/* Quick Actions */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-            <Button className="h-auto py-4 flex-col gap-2 bg-gradient-success hover:opacity-90 transition-opacity">
+            <Button onClick={() => setActiveForm("receita")} className="h-auto py-4 flex-col gap-2 bg-gradient-success hover:opacity-90 transition-opacity">
               <TrendingUp size={22} />
               <span className="text-sm">Nova Receita</span>
             </Button>
-            <Button className="h-auto py-4 flex-col gap-2 bg-gradient-expense hover:opacity-90 transition-opacity">
+            <Button onClick={() => setActiveForm("despesa")} className="h-auto py-4 flex-col gap-2 bg-gradient-expense hover:opacity-90 transition-opacity">
               <TrendingDown size={22} />
               <span className="text-sm">Nova Despesa</span>
             </Button>
-            <Button className="hidden lg:flex h-auto py-4 flex-col gap-2 bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20">
+            <Button onClick={() => setActiveForm("cartao")} className="h-auto py-4 flex-col gap-2 bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20">
               <CreditCard size={22} />
-              <span className="text-sm">Cartões</span>
+              <span className="text-sm">Novo Cartão</span>
             </Button>
-            <Button className="hidden lg:flex h-auto py-4 flex-col gap-2 bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20">
-              <Calendar size={22} />
-              <span className="text-sm">Relatório</span>
+            <Button onClick={() => setActiveForm("conta")} className="h-auto py-4 flex-col gap-2 bg-primary/10 text-primary hover:bg-primary/20 border border-primary/20">
+              <Landmark size={22} />
+              <span className="text-sm">Nova Conta</span>
             </Button>
           </div>
 
-          {/* Desktop: 2-column / Mobile: stack */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Transactions - takes 2 cols on desktop */}
             <Card className="p-5 shadow-soft lg:col-span-2">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-lg">Transações</h3>
                 <div className="flex gap-2">
-                  <Button variant="ghost" size="sm">
-                    <Filter size={18} />
-                  </Button>
-                  <Button variant="ghost" size="sm">
-                    <Calendar size={18} />
-                  </Button>
+                  <Button variant="ghost" size="sm"><Filter size={18} /></Button>
+                  <Button variant="ghost" size="sm"><Calendar size={18} /></Button>
                 </div>
               </div>
               
               <div className="space-y-2">
                 {transactions.map((transaction) => (
-                  <div 
-                    key={transaction.id}
-                    className="flex items-center gap-3 p-3 hover:bg-secondary/50 rounded-lg transition-colors"
-                  >
+                  <div key={transaction.id} className="flex items-center gap-3 p-3 hover:bg-secondary/50 rounded-lg transition-colors">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      transaction.type === 'income' 
-                        ? 'bg-success/10' 
-                        : transaction.paid 
-                          ? 'bg-expense/10' 
-                          : 'bg-muted'
+                      transaction.type === 'income' ? 'bg-success/10' : transaction.paid ? 'bg-expense/10' : 'bg-muted'
                     }`}>
                       {transaction.type === 'income' ? (
                         <TrendingUp className="text-success" size={20} />
@@ -117,19 +105,13 @@ const Financas = () => {
                         <TrendingDown className={transaction.paid ? "text-expense" : "text-muted-foreground"} size={20} />
                       )}
                     </div>
-                    
                     <div className="flex-1 min-w-0">
                       <p className="font-medium truncate">{transaction.name}</p>
                       <p className="text-sm text-muted-foreground">{transaction.category}</p>
                     </div>
-                    
                     <div className="text-right">
                       <p className={`font-semibold ${
-                        transaction.type === 'income' 
-                          ? 'text-success' 
-                          : transaction.paid 
-                            ? 'text-expense' 
-                            : 'text-muted-foreground'
+                        transaction.type === 'income' ? 'text-success' : transaction.paid ? 'text-expense' : 'text-muted-foreground'
                       }`}>
                         {transaction.type === 'income' ? '+' : ''}
                         {transaction.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
@@ -138,28 +120,18 @@ const Financas = () => {
                         {new Date(transaction.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })}
                       </p>
                     </div>
-                    
-                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                      <MoreVertical size={16} />
-                    </Button>
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0"><MoreVertical size={16} /></Button>
                   </div>
                 ))}
               </div>
-              
-              <Button variant="ghost" className="w-full mt-4">
-                Ver todas as transações
-              </Button>
+              <Button variant="ghost" className="w-full mt-4">Ver todas as transações</Button>
             </Card>
 
-            {/* Accounts Section - sidebar on desktop */}
             <Card className="p-5 shadow-soft">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-lg">Contas Bancárias</h3>
-                <Button variant="ghost" size="sm">
-                  <Plus size={18} />
-                </Button>
+                <Button variant="ghost" size="sm" onClick={() => setActiveForm("conta")}><Plus size={18} /></Button>
               </div>
-              
               <div className="space-y-3">
                 <div className="flex items-center gap-3 p-4 bg-gradient-card rounded-xl border border-border">
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
@@ -171,7 +143,6 @@ const Financas = () => {
                   </div>
                   <p className="font-bold text-primary">R$ 1.850</p>
                 </div>
-                
                 <div className="flex items-center gap-3 p-4 bg-gradient-card rounded-xl border border-border">
                   <div className="w-10 h-10 rounded-full bg-success/10 flex items-center justify-center">
                     <PiggyBank className="text-success" size={20} />
@@ -182,7 +153,6 @@ const Financas = () => {
                   </div>
                   <p className="font-bold text-success">R$ 8.500</p>
                 </div>
-                
                 <div className="flex items-center gap-3 p-4 bg-gradient-card rounded-xl border border-border">
                   <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
                     <CreditCard className="text-accent" size={20} />
