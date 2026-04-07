@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Financas from "./pages/Financas";
+import Transacoes from "./pages/Transacoes";
+import ContaDetalhe from "./pages/ContaDetalhe";
 import Tarefas from "./pages/Tarefas";
 import NotFound from "./pages/NotFound";
 
