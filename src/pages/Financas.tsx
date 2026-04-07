@@ -124,7 +124,7 @@ const Financas = () => {
                   </div>
                 ))}
               </div>
-              <Button variant="ghost" className="w-full mt-4">Ver todas as transações</Button>
+              <Button variant="ghost" className="w-full mt-4" onClick={() => navigate('/financas/transacoes')}>Ver todas as transações</Button>
             </Card>
 
             <Card className="p-5 shadow-soft">
