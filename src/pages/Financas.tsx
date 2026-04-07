@@ -124,7 +124,7 @@ const Financas = () => {
                   </div>
                 ))}
               </div>
-              <Button variant="ghost" className="w-full mt-4">Ver todas as transações</Button>
+              <Button variant="ghost" className="w-full mt-4" onClick={() => navigate('/financas/transacoes')}>Ver todas as transações</Button>
             </Card>
 
             <Card className="p-5 shadow-soft">
@@ -133,7 +133,7 @@ const Financas = () => {
                 <Button variant="ghost" size="sm" onClick={() => setActiveForm("conta")}><Plus size={18} /></Button>
               </div>
               <div className="space-y-3">
-                <div className="flex items-center gap-3 p-4 bg-gradient-card rounded-xl border border-border">
+                <button onClick={() => navigate('/financas/conta/corrente')} className="w-full flex items-center gap-3 p-4 bg-gradient-card rounded-xl border border-border hover:border-primary/30 transition-colors text-left">
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                     <Landmark className="text-primary" size={20} />
                   </div>
@@ -142,8 +142,8 @@ const Financas = () => {
                     <p className="text-sm text-muted-foreground">Banco Principal</p>
                   </div>
                   <p className="font-bold text-primary">R$ 1.850</p>
-                </div>
-                <div className="flex items-center gap-3 p-4 bg-gradient-card rounded-xl border border-border">
+                </button>
+                <button onClick={() => navigate('/financas/conta/poupanca')} className="w-full flex items-center gap-3 p-4 bg-gradient-card rounded-xl border border-border hover:border-success/30 transition-colors text-left">
                   <div className="w-10 h-10 rounded-full bg-success/10 flex items-center justify-center">
                     <PiggyBank className="text-success" size={20} />
                   </div>
@@ -152,8 +152,8 @@ const Financas = () => {
                     <p className="text-sm text-muted-foreground">Reserva Emergência</p>
                   </div>
                   <p className="font-bold text-success">R$ 8.500</p>
-                </div>
-                <div className="flex items-center gap-3 p-4 bg-gradient-card rounded-xl border border-border">
+                </button>
+                <button onClick={() => navigate('/financas/conta/cartao')} className="w-full flex items-center gap-3 p-4 bg-gradient-card rounded-xl border border-border hover:border-accent/30 transition-colors text-left">
                   <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
                     <CreditCard className="text-accent" size={20} />
                   </div>
@@ -162,7 +162,7 @@ const Financas = () => {
                     <p className="text-sm text-muted-foreground">Limite disponível</p>
                   </div>
                   <p className="font-bold text-accent">R$ 2.760</p>
-                </div>
+                </button>
               </div>
             </Card>
           </div>
