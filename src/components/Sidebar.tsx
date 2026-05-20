@@ -2,6 +2,7 @@ import { Home, Wallet, ListTodo, Settings, Menu } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import ThemeToggle from "./ThemeToggle";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -55,14 +56,15 @@ const Sidebar = () => {
       </nav>
 
       {/* Footer */}
-      {!collapsed && (
-        <div className="p-4 border-t border-border">
-          <div className="bg-gradient-card rounded-xl p-4 border border-border">
+      <div className={cn("p-4 border-t border-border flex items-center", collapsed ? "justify-center" : "justify-between gap-2")}>
+        {!collapsed && (
+          <div className="bg-gradient-card rounded-xl p-3 border border-border flex-1">
             <p className="text-xs text-muted-foreground">Rotina v1.0</p>
             <p className="text-xs text-muted-foreground mt-1">Organize sua vida</p>
           </div>
-        </div>
-      )}
+        )}
+        <ThemeToggle />
+      </div>
     </aside>
   );
 };
