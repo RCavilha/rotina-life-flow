@@ -8,6 +8,7 @@ import Financas from "./pages/Financas";
 import Transacoes from "./pages/Transacoes";
 import ContaDetalhe from "./pages/ContaDetalhe";
 import Tarefas from "./pages/Tarefas";
+import Config from "./pages/Config";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./components/ThemeProvider";
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/financas/transacoes" element={<Transacoes />} />
           <Route path="/financas/conta/:id" element={<ContaDetalhe />} />
           <Route path="/tarefas" element={<Tarefas />} />
+          <Route path="/config" element={<Config />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
