@@ -9,11 +9,13 @@ import Transacoes from "./pages/Transacoes";
 import ContaDetalhe from "./pages/ContaDetalhe";
 import Tarefas from "./pages/Tarefas";
 import NotFound from "./pages/NotFound";
+import { ThemeProvider } from "./components/ThemeProvider";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <ThemeProvider>
     <TooltipProvider>
       <Toaster />
       <Sonner />
@@ -29,6 +31,7 @@ const App = () => (
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

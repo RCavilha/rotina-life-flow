@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "./ThemeToggle";
 import { 
   Wallet, 
   TrendingUp, 
@@ -13,6 +14,12 @@ import {
   PiggyBank
 } from "lucide-react";
 
+const ThemeToggleMobile = () => (
+  <div className="text-primary-foreground [&_button]:text-primary-foreground [&_button]:hover:bg-white/10">
+    <ThemeToggle />
+  </div>
+);
+
 const Dashboard = () => {
   const currentMonth = new Date().toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
   
@@ -20,9 +27,14 @@ const Dashboard = () => {
     <div className="min-h-screen bg-background pb-20 lg:pb-8">
       {/* Header with gradient */}
       <header className="bg-gradient-primary text-primary-foreground px-6 pt-8 pb-12 lg:pb-8 rounded-b-[2rem] lg:rounded-b-none shadow-large">
-        <div className="max-w-md lg:max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold mb-2">Rotina</h1>
-          <p className="text-primary-foreground/90 capitalize">{currentMonth}</p>
+        <div className="max-w-md lg:max-w-6xl mx-auto flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">Rotina</h1>
+            <p className="text-primary-foreground/90 capitalize">{currentMonth}</p>
+          </div>
+          <div className="lg:hidden">
+            <ThemeToggleMobile />
+          </div>
         </div>
       </header>
 
