@@ -43,7 +43,7 @@
 
     --radius: 0.75rem;
 
-    --gradient-primary: linear-gradient(135deg, hsl(220 30% 22%), hsl(220 25% 35%));
+    --gradient-primary: linear-gradient(135deg, hsl(210 35% 40%), hsl(210 40% 55%));
     --gradient-success: linear-gradient(135deg, hsl(150 35% 35%), hsl(150 30% 45%));
     --gradient-expense: linear-gradient(135deg, hsl(0 55% 42%), hsl(0 50% 52%));
     --gradient-header: linear-gradient(180deg, hsl(220 30% 22%), hsl(220 25% 28%));
