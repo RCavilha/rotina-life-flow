@@ -1,16 +1,32 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import Layout from "@/components/Layout";
 import { useTheme } from "@/components/ThemeProvider";
-import { Sun, Moon, Monitor, User, Bell, Shield, HelpCircle, LogOut } from "lucide-react";
+import { Sun, Moon, Monitor, User, Bell, Shield, HelpCircle, LogOut, Database } from "lucide-react";
+import { useState } from "react";
+import { getNotionDatabaseId, setNotionDatabaseId } from "@/lib/notion";
+import { toast } from "@/hooks/use-toast";
 
 const Config = () => {
   const { theme, setTheme } = useTheme();
+  const [notionId, setNotionId] = useState(getNotionDatabaseId());
 
   const options = [
     { value: "light", label: "Claro", icon: Sun },
     { value: "dark", label: "Escuro", icon: Moon },
   ] as const;
+
+  const saveNotion = () => {
+    setNotionDatabaseId(notionId);
+    toast({
+      title: notionId ? "Notion conectado" : "Sincronização desativada",
+      description: notionId
+        ? "Novos registros serão enviados ao seu banco de dados do Notion."
+        : "Os registros não serão mais enviados ao Notion.",
+    });
+  };
 
   return (
     <Layout>
