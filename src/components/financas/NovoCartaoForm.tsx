@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { sendToNotion } from "@/lib/notion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,8 +19,15 @@ const NovoCartaoForm = ({ onClose }: NovoCartaoFormProps) => {
   const [vencimento, setVencimento] = useState("");
   const [cor, setCor] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    await sendToNotion("Cartão", nome || "Cartão sem nome", {
+      Bandeira: bandeira,
+      Limite: limite ? `R$ ${limite}` : "",
+      "Dia de Fechamento": fechamento,
+      "Dia de Vencimento": vencimento,
+      Cor: cor,
+    });
     onClose();
   };
 

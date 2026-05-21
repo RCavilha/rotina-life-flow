@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { sendToNotion } from "@/lib/notion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,8 +36,18 @@ const NovaDespesaForm = ({ onClose }: NovaDespesaFormProps) => {
     utilidades: ["Internet", "Telefone", "Energia", "Água"],
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    await sendToNotion("Despesa", nome || "Despesa sem nome", {
+      Valor: valor ? `R$ ${valor}` : "",
+      Data: data,
+      Categoria: categoria,
+      Subcategoria: subcategoria,
+      Notas: notas,
+      Pago: pago ? "Sim" : "Não",
+      Recorrente: recorrente ? frequencia || "Sim" : "Não",
+      Parcelado: parcelado ? `${parcelas}x` : "Não",
+    });
     onClose();
   };
 

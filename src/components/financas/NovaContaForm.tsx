@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { sendToNotion } from "@/lib/notion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,8 +18,14 @@ const NovaContaForm = ({ onClose }: NovaContaFormProps) => {
   const [saldo, setSaldo] = useState("");
   const [cor, setCor] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    await sendToNotion("Conta", nome || "Conta sem nome", {
+      Banco: banco,
+      Tipo: tipo,
+      "Saldo Inicial": saldo ? `R$ ${saldo}` : "",
+      Cor: cor,
+    });
     onClose();
   };
 

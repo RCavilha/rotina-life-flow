@@ -1,16 +1,32 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import Layout from "@/components/Layout";
 import { useTheme } from "@/components/ThemeProvider";
-import { Sun, Moon, Monitor, User, Bell, Shield, HelpCircle, LogOut } from "lucide-react";
+import { Sun, Moon, Monitor, User, Bell, Shield, HelpCircle, LogOut, Database } from "lucide-react";
+import { useState } from "react";
+import { getNotionDatabaseId, setNotionDatabaseId } from "@/lib/notion";
+import { toast } from "@/hooks/use-toast";
 
 const Config = () => {
   const { theme, setTheme } = useTheme();
+  const [notionId, setNotionId] = useState(getNotionDatabaseId());
 
   const options = [
     { value: "light", label: "Claro", icon: Sun },
     { value: "dark", label: "Escuro", icon: Moon },
   ] as const;
+
+  const saveNotion = () => {
+    setNotionDatabaseId(notionId);
+    toast({
+      title: notionId ? "Notion conectado" : "Sincronização desativada",
+      description: notionId
+        ? "Novos registros serão enviados ao seu banco de dados do Notion."
+        : "Os registros não serão mais enviados ao Notion.",
+    });
+  };
 
   return (
     <Layout>
@@ -66,6 +82,33 @@ const Config = () => {
               <SettingRow label="Moeda" value="BRL (R$)" />
             </div>
           </Card>
+
+          {/* Sincronização com Notion */}
+          <Card className="p-6 shadow-soft animate-fade-in">
+            <div className="flex items-center gap-2 mb-2">
+              <Database className="text-primary" size={20} />
+              <h2 className="font-semibold text-lg">Sincronizar com Notion</h2>
+            </div>
+            <p className="text-sm text-muted-foreground mb-4">
+              Cada nova transação, conta ou cartão é enviado automaticamente para um banco de dados do Notion.
+              Compartilhe seu banco com a integração e cole abaixo o ID dele (parte final da URL).
+            </p>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label htmlFor="notion-db">ID do Banco de Dados (Notion)</Label>
+                <Input
+                  id="notion-db"
+                  placeholder="Ex: 1a2b3c4d5e6f7890..."
+                  value={notionId}
+                  onChange={(e) => setNotionId(e.target.value)}
+                />
+              </div>
+              <Button onClick={saveNotion} className="w-full">
+                Salvar
+              </Button>
+            </div>
+          </Card>
+
 
           {/* Outras */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
