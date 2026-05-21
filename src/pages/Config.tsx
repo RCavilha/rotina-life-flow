@@ -83,6 +83,33 @@ const Config = () => {
             </div>
           </Card>
 
+          {/* Sincronização com Notion */}
+          <Card className="p-6 shadow-soft animate-fade-in">
+            <div className="flex items-center gap-2 mb-2">
+              <Database className="text-primary" size={20} />
+              <h2 className="font-semibold text-lg">Sincronizar com Notion</h2>
+            </div>
+            <p className="text-sm text-muted-foreground mb-4">
+              Cada nova transação, conta ou cartão é enviado automaticamente para um banco de dados do Notion.
+              Compartilhe seu banco com a integração e cole abaixo o ID dele (parte final da URL).
+            </p>
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <Label htmlFor="notion-db">ID do Banco de Dados (Notion)</Label>
+                <Input
+                  id="notion-db"
+                  placeholder="Ex: 1a2b3c4d5e6f7890..."
+                  value={notionId}
+                  onChange={(e) => setNotionId(e.target.value)}
+                />
+              </div>
+              <Button onClick={saveNotion} className="w-full">
+                Salvar
+              </Button>
+            </div>
+          </Card>
+
+
           {/* Outras */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <OptionCard icon={Bell} title="Notificações" desc="Lembretes e alertas" />
