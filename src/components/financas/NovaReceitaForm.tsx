@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { sendToNotion } from "@/lib/notion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,9 +23,16 @@ const NovaReceitaForm = ({ onClose }: NovaReceitaFormProps) => {
   const [recorrente, setRecorrente] = useState(false);
   const [frequencia, setFrequencia] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: save logic
+    await sendToNotion("Receita", nome || "Receita sem nome", {
+      Valor: valor ? `R$ ${valor}` : "",
+      Data: data,
+      Categoria: categoria,
+      Notas: notas,
+      Recebido: recebido ? "Sim" : "Não",
+      Recorrente: recorrente ? frequencia || "Sim" : "Não",
+    });
     onClose();
   };
 
