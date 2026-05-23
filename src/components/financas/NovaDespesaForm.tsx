@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { sendToNotion } from "@/lib/notion";
+import { useFinCategorias } from "@/lib/categorias";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,15 +27,10 @@ const NovaDespesaForm = ({ onClose }: NovaDespesaFormProps) => {
   const [parcelas, setParcelas] = useState("");
   const [parcelado, setParcelado] = useState(false);
 
-  const subcategorias: Record<string, string[]> = {
-    alimentacao: ["Supermercado", "Restaurante", "Delivery", "Lanches"],
-    moradia: ["Aluguel", "Condomínio", "IPTU", "Manutenção"],
-    transporte: ["Combustível", "Estacionamento", "Transporte público", "Manutenção"],
-    entretenimento: ["Streaming", "Cinema", "Jogos", "Viagens"],
-    saude: ["Plano de saúde", "Farmácia", "Consultas", "Academia"],
-    educacao: ["Cursos", "Livros", "Material escolar"],
-    utilidades: ["Internet", "Telefone", "Energia", "Água"],
-  };
+  const finCats = useFinCategorias();
+  const despesaCats = finCats.filter(c => c.tipo === "despesa" || c.tipo === "ambos");
+  const subOptions = despesaCats.find(c => c.id === categoria)?.subcategorias ?? [];
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
