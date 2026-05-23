@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { sendToNotion } from "@/lib/notion";
-import { useFinCategorias } from "@/lib/categorias";
+import { useFinCategorias, addFinCategoria, addSubcategoria } from "@/lib/categorias";
+import CategoriaPicker from "./CategoriaPicker";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
