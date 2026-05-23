@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { sendToNotion } from "@/lib/notion";
-import { useFinCategorias } from "@/lib/categorias";
+import { useFinCategorias, addFinCategoria, addSubcategoria } from "@/lib/categorias";
+import CategoriaPicker from "./CategoriaPicker";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -83,25 +84,25 @@ const NovaDespesaForm = ({ onClose }: NovaDespesaFormProps) => {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Categoria</Label>
-                <Select value={categoria} onValueChange={(v) => { setCategoria(v); setSubcategoria(""); }}>
-                  <SelectTrigger><SelectValue placeholder="Categoria" /></SelectTrigger>
-                  <SelectContent>
-                    {despesaCats.map(c => (
-                      <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <CategoriaPicker
+                  value={categoria}
+                  onChange={(v) => { setCategoria(v); setSubcategoria(""); }}
+                  options={despesaCats.map(c => ({ id: c.id, nome: c.nome }))}
+                  onAdd={(nome) => addFinCategoria(nome, "despesa")}
+                  placeholder="Categoria"
+                />
               </div>
               <div className="space-y-2">
                 <Label>Subcategoria</Label>
-                <Select value={subcategoria} onValueChange={setSubcategoria} disabled={!categoria || subOptions.length === 0}>
-                  <SelectTrigger><SelectValue placeholder={subOptions.length ? "Subcategoria" : "Sem subcategorias"} /></SelectTrigger>
-                  <SelectContent>
-                    {subOptions.map(sub => (
-                      <SelectItem key={sub} value={sub.toLowerCase()}>{sub}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <CategoriaPicker
+                  value={subcategoria}
+                  onChange={setSubcategoria}
+                  options={subOptions.map(s => ({ id: s.toLowerCase(), nome: s }))}
+                  onAdd={categoria ? (nome) => addSubcategoria(categoria, nome) : undefined}
+                  placeholder={categoria ? "Subcategoria" : "Escolha categoria"}
+                  emptyText="Sem subcategorias"
+                  disabled={!categoria}
+                />
               </div>
             </div>
 
