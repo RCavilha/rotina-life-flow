@@ -86,22 +86,18 @@ const NovaDespesaForm = ({ onClose }: NovaDespesaFormProps) => {
                 <Select value={categoria} onValueChange={(v) => { setCategoria(v); setSubcategoria(""); }}>
                   <SelectTrigger><SelectValue placeholder="Categoria" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="alimentacao">Alimentação</SelectItem>
-                    <SelectItem value="moradia">Moradia</SelectItem>
-                    <SelectItem value="transporte">Transporte</SelectItem>
-                    <SelectItem value="entretenimento">Entretenimento</SelectItem>
-                    <SelectItem value="saude">Saúde</SelectItem>
-                    <SelectItem value="educacao">Educação</SelectItem>
-                    <SelectItem value="utilidades">Utilidades</SelectItem>
+                    {despesaCats.map(c => (
+                      <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <Label>Subcategoria</Label>
-                <Select value={subcategoria} onValueChange={setSubcategoria} disabled={!categoria}>
-                  <SelectTrigger><SelectValue placeholder="Subcategoria" /></SelectTrigger>
+                <Select value={subcategoria} onValueChange={setSubcategoria} disabled={!categoria || subOptions.length === 0}>
+                  <SelectTrigger><SelectValue placeholder={subOptions.length ? "Subcategoria" : "Sem subcategorias"} /></SelectTrigger>
                   <SelectContent>
-                    {(subcategorias[categoria] || []).map(sub => (
+                    {subOptions.map(sub => (
                       <SelectItem key={sub} value={sub.toLowerCase()}>{sub}</SelectItem>
                     ))}
                   </SelectContent>
