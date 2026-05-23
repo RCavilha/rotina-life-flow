@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { sendToNotion } from "@/lib/notion";
-import { useFinCategorias } from "@/lib/categorias";
+import { useFinCategorias, addFinCategoria } from "@/lib/categorias";
+import CategoriaPicker from "./CategoriaPicker";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -76,14 +77,13 @@ const NovaReceitaForm = ({ onClose }: NovaReceitaFormProps) => {
 
             <div className="space-y-2">
               <Label>Categoria</Label>
-              <Select value={categoria} onValueChange={setCategoria}>
-                <SelectTrigger><SelectValue placeholder="Selecione a categoria" /></SelectTrigger>
-                <SelectContent>
-                  {receitaCats.map(c => (
-                    <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <CategoriaPicker
+                value={categoria}
+                onChange={setCategoria}
+                options={receitaCats.map(c => ({ id: c.id, nome: c.nome }))}
+                onAdd={(nome) => addFinCategoria(nome, "receita")}
+                placeholder="Selecione a categoria"
+              />
             </div>
 
             <div className="space-y-2">
