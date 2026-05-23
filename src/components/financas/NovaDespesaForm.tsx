@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { sendToNotion } from "@/lib/notion";
+import { useFinCategorias } from "@/lib/categorias";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,15 +27,10 @@ const NovaDespesaForm = ({ onClose }: NovaDespesaFormProps) => {
   const [parcelas, setParcelas] = useState("");
   const [parcelado, setParcelado] = useState(false);
 
-  const subcategorias: Record<string, string[]> = {
-    alimentacao: ["Supermercado", "Restaurante", "Delivery", "Lanches"],
-    moradia: ["Aluguel", "Condomínio", "IPTU", "Manutenção"],
-    transporte: ["Combustível", "Estacionamento", "Transporte público", "Manutenção"],
-    entretenimento: ["Streaming", "Cinema", "Jogos", "Viagens"],
-    saude: ["Plano de saúde", "Farmácia", "Consultas", "Academia"],
-    educacao: ["Cursos", "Livros", "Material escolar"],
-    utilidades: ["Internet", "Telefone", "Energia", "Água"],
-  };
+  const finCats = useFinCategorias();
+  const despesaCats = finCats.filter(c => c.tipo === "despesa" || c.tipo === "ambos");
+  const subOptions = despesaCats.find(c => c.id === categoria)?.subcategorias ?? [];
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,22 +86,18 @@ const NovaDespesaForm = ({ onClose }: NovaDespesaFormProps) => {
                 <Select value={categoria} onValueChange={(v) => { setCategoria(v); setSubcategoria(""); }}>
                   <SelectTrigger><SelectValue placeholder="Categoria" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="alimentacao">Alimentação</SelectItem>
-                    <SelectItem value="moradia">Moradia</SelectItem>
-                    <SelectItem value="transporte">Transporte</SelectItem>
-                    <SelectItem value="entretenimento">Entretenimento</SelectItem>
-                    <SelectItem value="saude">Saúde</SelectItem>
-                    <SelectItem value="educacao">Educação</SelectItem>
-                    <SelectItem value="utilidades">Utilidades</SelectItem>
+                    {despesaCats.map(c => (
+                      <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <Label>Subcategoria</Label>
-                <Select value={subcategoria} onValueChange={setSubcategoria} disabled={!categoria}>
-                  <SelectTrigger><SelectValue placeholder="Subcategoria" /></SelectTrigger>
+                <Select value={subcategoria} onValueChange={setSubcategoria} disabled={!categoria || subOptions.length === 0}>
+                  <SelectTrigger><SelectValue placeholder={subOptions.length ? "Subcategoria" : "Sem subcategorias"} /></SelectTrigger>
                   <SelectContent>
-                    {(subcategorias[categoria] || []).map(sub => (
+                    {subOptions.map(sub => (
                       <SelectItem key={sub} value={sub.toLowerCase()}>{sub}</SelectItem>
                     ))}
                   </SelectContent>

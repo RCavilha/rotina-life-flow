@@ -8,6 +8,7 @@ import { Sun, Moon, Monitor, User, Bell, Shield, HelpCircle, LogOut, Database } 
 import { useState } from "react";
 import { getNotionDatabaseId, setNotionDatabaseId } from "@/lib/notion";
 import { toast } from "@/hooks/use-toast";
+import GerenciarCategorias from "@/components/config/GerenciarCategorias";
 
 const Config = () => {
   const { theme, setTheme } = useTheme();
@@ -108,6 +109,10 @@ const Config = () => {
               </Button>
             </div>
           </Card>
+
+          <GerenciarCategorias />
+
+
 
 
           {/* Outras */}

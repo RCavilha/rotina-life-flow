@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { sendToNotion } from "@/lib/notion";
+import { useFinCategorias } from "@/lib/categorias";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,6 +23,8 @@ const NovaReceitaForm = ({ onClose }: NovaReceitaFormProps) => {
   const [recebido, setRecebido] = useState(false);
   const [recorrente, setRecorrente] = useState(false);
   const [frequencia, setFrequencia] = useState("");
+  const finCats = useFinCategorias();
+  const receitaCats = finCats.filter(c => c.tipo === "receita" || c.tipo === "ambos");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,11 +79,9 @@ const NovaReceitaForm = ({ onClose }: NovaReceitaFormProps) => {
               <Select value={categoria} onValueChange={setCategoria}>
                 <SelectTrigger><SelectValue placeholder="Selecione a categoria" /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="salario">Salário</SelectItem>
-                  <SelectItem value="freelance">Freelance</SelectItem>
-                  <SelectItem value="investimentos">Investimentos</SelectItem>
-                  <SelectItem value="alugueis">Aluguéis</SelectItem>
-                  <SelectItem value="outros">Outros</SelectItem>
+                  {receitaCats.map(c => (
+                    <SelectItem key={c.id} value={c.id}>{c.nome}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
