@@ -7,7 +7,7 @@
 @layer base {
   :root {
     /* Classic minimalist light — paper white, ink black, restrained accents */
-    --background: 40 15% 98%;
+    --background: 40 18% 94%;
     --foreground: 220 15% 12%;
 
     --card: 0 0% 100%;
@@ -101,10 +101,10 @@
     --input: 0 0% 22%;
     --ring: 0 0% 85%;
 
-    --gradient-primary: linear-gradient(135deg, hsl(0 0% 14%), hsl(0 0% 22%));
-    --gradient-success: linear-gradient(135deg, hsl(150 30% 30%), hsl(150 32% 40%));
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 92%), hsl(0 0% 78%));
+    --gradient-success: linear-gradient(135deg, hsl(150 30% 35%), hsl(150 32% 45%));
     --gradient-expense: linear-gradient(135deg, hsl(5 55% 45%), hsl(5 60% 55%));
-    --gradient-header: linear-gradient(180deg, hsl(0 0% 12%), hsl(0 0% 8%));
+    --gradient-header: linear-gradient(180deg, hsl(0 0% 90%), hsl(0 0% 80%));
     --gradient-card: linear-gradient(180deg, hsl(0 0% 15%), hsl(0 0% 12%));
 
     --shadow-soft: 0 1px 3px -1px hsl(0 0% 0% / 0.45);
