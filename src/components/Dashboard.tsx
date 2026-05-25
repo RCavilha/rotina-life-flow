@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 const ThemeToggleMobile = () => (
-  <div className="text-primary-foreground [&_button]:text-primary-foreground [&_button]:hover:bg-white/10">
+  <div className="text-white [&_button]:text-white [&_button]:hover:bg-white/10">
     <ThemeToggle />
   </div>
 );
