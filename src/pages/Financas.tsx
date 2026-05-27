@@ -35,7 +35,7 @@ const Financas = () => {
   return (
     <Layout>
       <div className="min-h-screen bg-background pb-20 lg:pb-8">
-        <header className="bg-gradient-primary text-primary-foreground px-6 pt-8 pb-8 shadow-large lg:rounded-none">
+        <header className="bg-gradient-primary text-white px-6 pt-8 pb-8 shadow-large lg:rounded-none">
           <div className="max-w-md lg:max-w-6xl mx-auto">
             <div className="flex items-center gap-3 mb-6">
               <button onClick={() => navigate('/')} className="hover:opacity-80 transition-opacity lg:hidden">
@@ -46,16 +46,16 @@ const Financas = () => {
             
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/20 lg:flex lg:items-center lg:justify-between lg:gap-8">
               <div>
-                <p className="text-primary-foreground/80 text-sm mb-1">Saldo Total</p>
+                <p className="text-white/80 text-sm mb-1">Saldo Total</p>
                 <p className="text-3xl font-bold mb-4 lg:mb-0">R$ 10.330</p>
               </div>
               <div className="flex gap-4 lg:gap-8">
                 <div>
-                  <p className="text-primary-foreground/80 text-xs mb-1">Receitas</p>
+                  <p className="text-white/80 text-xs mb-1">Receitas</p>
                   <p className="text-lg font-semibold">R$ 5.420</p>
                 </div>
                 <div>
-                  <p className="text-primary-foreground/80 text-xs mb-1">Despesas</p>
+                  <p className="text-white/80 text-xs mb-1">Despesas</p>
                   <p className="text-lg font-semibold">R$ 3.240</p>
                 </div>
               </div>
